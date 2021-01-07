@@ -3,6 +3,7 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, } from 'react-redux';
+import BrowserTitle from './components/BrowserTitle';
 import './index.css';
 import App from './App';
 import store from './store';
@@ -17,7 +18,10 @@ function render(props?: any) {
   ReactDOM.render(
     <Provider store={store}>
       <React.StrictMode>
-        <App />
+        <React.Fragment>
+          <BrowserTitle />
+          <App />
+        </React.Fragment>
       </React.StrictMode>,
     </Provider>,
     container,
