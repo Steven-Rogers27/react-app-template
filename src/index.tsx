@@ -3,12 +3,21 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, } from 'react-redux';
+import { ConfigProvider, } from 'antd';
+import 'antd/dist/antd.css';
+import zhCN from 'antd/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
 import BrowserTitle from './components/BrowserTitle';
 import './index.css';
 import App from './App';
 import store from './store';
 import reportWebVitals from './reportWebVitals';
 import './public-path';
+import './i18n/index';
+
+dayjs.locale('zh-cn');
 
 function render(props?: any) {
   let container = document.getElementById('root');
@@ -17,12 +26,12 @@ function render(props?: any) {
   }
   ReactDOM.render(
     <Provider store={store}>
-      <React.StrictMode>
+      <ConfigProvider locale={zhCN}>
         <React.Fragment>
           <BrowserTitle />
           <App />
         </React.Fragment>
-      </React.StrictMode>,
+      </ConfigProvider>
     </Provider>,
     container,
   );

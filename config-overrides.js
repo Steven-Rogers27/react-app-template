@@ -3,6 +3,7 @@ const fs = require('fs');
 const {
   getBabelLoader,
 } = require('customize-cra');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 module.exports = {
   webpack: function(config, env) {
@@ -48,14 +49,33 @@ module.exports = {
         }
       ],
     );
+    babelLoader.options.plugins = babelLoader.options.plugins || [];
+    babelLoader.options.plugins.push(
+      [
+        '@babel/plugin-transform-block-scoping',
+      ],
+    );
     // 处理src目录以外的js文件的babel-loader配置
     const babelLoaderOuter = getBabelLoader(config, true);
+    babelLoaderOuter.include = path.resolve(__dirname, 'node_modules')
     babelLoaderOuter.options.plugins = babelLoaderOuter.options.plugins || [];
     babelLoaderOuter.options.plugins.push(
       [
-        '@babel/plugin-transform-runtime'
+        '@babel/plugin-transform-runtime',
       ],
     );
+    // 增加dayjs插件，代替antd中的momentjs，可以减小打包大小
+    config.plugins = [
+      ...config.plugins,
+      new AntdDayjsWebpackPlugin({
+        preset: 'antdv3',
+      }),
+    ];
+
+    fs.writeFile(path.resolve(__dirname, 'babel-loadder-outer.json'), JSON.stringify(babelLoaderOuter), err => {
+      console.error(err);
+    });
+    console.log(babelLoaderOuter);
 
     return config;
   },

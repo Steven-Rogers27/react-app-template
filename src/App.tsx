@@ -5,9 +5,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Counter from './examples/counter/Counter';
-import { PostsList, } from './examples/posts/postsList';
-import { AddPostForm, } from './examples/posts/addPostForm';
+import Uploader from './components/uploader/Uploader';
+
 const BASE_NAME = window.__POWERED_BY_QIANKUN__ ? '/react' : '';
 
 function App() {
@@ -15,19 +14,13 @@ function App() {
     <Router basename={BASE_NAME}>
       <Switch>
         <Route
-          path="/counter"
-        >
-          <Counter />
-        </Route>
-        <Route
-          path="/posts"
+          path="/"
         >
           <React.Fragment>
-            <AddPostForm />
-            <PostsList />
+            <Uploader />
           </React.Fragment>
         </Route>
-        <Redirect to="/posts" />
+        <Redirect to="/" />
       </Switch>
     </Router>
   );

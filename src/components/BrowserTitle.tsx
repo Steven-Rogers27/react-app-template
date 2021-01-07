@@ -3,7 +3,7 @@ import { Helmet, } from 'react-helmet';
 
 const BrowserTitle = () => (
   <Helmet>
-    <title>Helmet Title</title>
+    <title>广招材网</title>
   </Helmet>
 );
 
